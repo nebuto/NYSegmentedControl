@@ -309,8 +309,8 @@
         if (CGRectContainsPoint(segment.frame, location)) {
             if (index != self.selectedSegmentIndex) {
                 [self setSelectedSegmentIndex:index animated:YES];
-                [self sendActionsForControlEvents:UIControlEventValueChanged];
             }
+            [self sendActionsForControlEvents:UIControlEventValueChanged];
         }
     }];
 }
