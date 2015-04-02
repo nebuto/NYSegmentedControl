@@ -16,6 +16,7 @@
 
 @property NSArray *segments;
 @property NYSegmentIndicator *selectedSegmentIndicator;
+@property (nonatomic, strong) NSMutableArray *segmentsSeparator;
 @property (nonatomic, getter=isAnimating) BOOL animating;
 
 - (void)moveSelectedSegmentIndicatorToSegmentAtIndex:(NSUInteger)index animated:(BOOL)animated;
@@ -55,11 +56,17 @@
     if (self) {
         NSMutableArray *mutableSegments = [NSMutableArray array];
         
+        self.segmentsSeparator = @[].mutableCopy;
+        
         for (NSString *segmentTitle in items) {
             NYSegment *segment = [[NYSegment alloc] initWithTitle:segmentTitle];
-            segment.titleLabel.maskCornerRadius = self.cornerRadius;
+//            segment.titleLabel.maskCornerRadius = self.cornerRadius;
             [self addSubview:segment];
             [mutableSegments addObject:segment];
+            
+            UIView* separator = [[UIView alloc] initWithFrame:CGRectZero];
+            [self.segmentsSeparator addObject:separator];
+            [self addSubview:separator];
         }
         
         self.segments = [NSArray arrayWithArray:mutableSegments];
@@ -128,9 +135,14 @@
     CGFloat segmentWidth = CGRectGetWidth(self.frame) / [self.segments count];
     CGFloat segmentHeight = CGRectGetHeight(self.frame);
     for (int i = 0; i < [self.segments count]; i++) {
+        
+        UIView* separator = self.segmentsSeparator[i];
+        separator.frame = CGRectMake(segmentWidth * i, 0, self.borderWidth, segmentHeight);
+        separator.backgroundColor = self.borderColor;
+        
         NYSegment *segment = self.segments[i];
         segment.frame = CGRectMake(segmentWidth * i, 0.0f, segmentWidth, segmentHeight);
-
+        
         if (self.stylesTitleForSelectedSegment) {
             if (self.selectedSegmentIndex == i) {
                 segment.titleLabel.font = self.selectedTitleFont;
@@ -166,12 +178,16 @@
     }
     
     NYSegment *newSegment = [[NYSegment alloc] initWithTitle:title];
-    newSegment.titleLabel.maskCornerRadius = self.cornerRadius;
+//    newSegment.titleLabel.maskCornerRadius = self.cornerRadius;
     [self addSubview:newSegment];
     
     NSMutableArray *mutableSegments = [NSMutableArray arrayWithArray:self.segments];
     [mutableSegments insertObject:newSegment atIndex:index];
     self.segments = [NSArray arrayWithArray:mutableSegments];
+    
+    UIView* separator = [[UIView alloc] initWithFrame:CGRectZero];
+    [self.segmentsSeparator addObject:separator];
+    [self addSubview:separator];
     
     [self setNeedsLayout];
 }
@@ -355,9 +371,9 @@
 }
 
 - (void)setCornerRadius:(CGFloat)cornerRadius {
-    for (NYSegment *segment in self.segments) {
-        segment.titleLabel.maskCornerRadius = cornerRadius;
-    }
+//    for (NYSegment *segment in self.segments) {
+//        segment.titleLabel.maskCornerRadius = cornerRadius;
+//    }
 
     self.layer.cornerRadius = cornerRadius;
     self.selectedSegmentIndicator.cornerRadius = cornerRadius * ((self.frame.size.height - self.segmentIndicatorInset * 2) / self.frame.size.height);
@@ -378,7 +394,7 @@
 
 - (void)setFrame:(CGRect)frame {
     [super setFrame:frame];
-    self.selectedSegmentIndicator.cornerRadius = self.cornerRadius * ((self.frame.size.height - self.segmentIndicatorInset * 2) / self.frame.size.height);
+//    self.selectedSegmentIndicator.cornerRadius = self.cornerRadius * ((self.frame.size.height - self.segmentIndicatorInset * 2) / self.frame.size.height);
 }
 
 - (void)setSegmentIndicatorBackgroundColor:(UIColor *)segmentIndicatorBackgroundColor {
@@ -391,7 +407,7 @@
 
 - (void)setSegmentIndicatorInset:(CGFloat)segmentIndicatorInset {
     _segmentIndicatorInset = segmentIndicatorInset;
-    self.selectedSegmentIndicator.cornerRadius = self.cornerRadius * ((self.frame.size.height - self.segmentIndicatorInset * 2) / self.frame.size.height);
+//    self.selectedSegmentIndicator.cornerRadius = self.cornerRadius * ((self.frame.size.height - self.segmentIndicatorInset * 2) / self.frame.size.height);
     [self setNeedsLayout];
 }
 

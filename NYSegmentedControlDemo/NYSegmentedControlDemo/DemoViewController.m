@@ -29,21 +29,37 @@
     //self.extendedLayoutIncludesOpaqueBars = YES;
 
     // Control in navigation bar
-    self.segmentedControl = [[NYSegmentedControl alloc] initWithItems:@[@"Light", @"Dark"]];
-    [self.segmentedControl addTarget:self action:@selector(segmentSelected) forControlEvents:UIControlEventValueChanged];
-    self.segmentedControl.titleFont = [UIFont fontWithName:@"AvenirNext-Medium" size:14.0f];
-    self.segmentedControl.titleTextColor = [UIColor colorWithWhite:0.5f alpha:1.0f];
-    self.segmentedControl.selectedTitleFont = [UIFont fontWithName:@"AvenirNext-DemiBold" size:14.0f];
-    self.segmentedControl.selectedTitleTextColor = [UIColor whiteColor];
-    self.segmentedControl.borderWidth = 1.0f;
-    self.segmentedControl.borderColor = [UIColor colorWithWhite:0.15f alpha:1.0f];
-    self.segmentedControl.drawsGradientBackground = YES;
-    self.segmentedControl.segmentIndicatorInset = 2.0f;
-    self.segmentedControl.segmentIndicatorGradientTopColor = [UIColor colorWithRed:0.30 green:0.50 blue:0.88f alpha:1.0f];
-    self.segmentedControl.segmentIndicatorGradientBottomColor = [UIColor colorWithRed:0.20 green:0.35 blue:0.75f alpha:1.0f];
-    self.segmentedControl.drawsSegmentIndicatorGradientBackground = YES;
-    self.segmentedControl.segmentIndicatorBorderWidth = 0.0f;
-    self.segmentedControl.selectedSegmentIndex = 0;
+    self.segmentedControl = [[NYSegmentedControl alloc] initWithItems:@[@"Light", @"Dark", @"zboo"]];
+//    [self.segmentedControl addTarget:self action:@selector(segmentSelected) forControlEvents:UIControlEventTouchUpInside];
+    _segmentedControl.selectedTitleTextColor = [UIColor whiteColor];
+    _segmentedControl.titleTextColor = [UIColor redColor];
+    _segmentedControl.titleFont = [UIFont fontWithName:@"HelveticaNeue-Medium" size:12];
+    _segmentedControl.selectedTitleFont = [UIFont fontWithName:@"HelveticaNeue-Medium" size:12];
+    _segmentedControl.borderWidth = 1.0f;
+    _segmentedControl.borderColor = [UIColor redColor];
+    _segmentedControl.drawsGradientBackground = NO;
+    _segmentedControl.segmentIndicatorInset = 2.0f;
+    _segmentedControl.cornerRadius = 5;
+    _segmentedControl.drawsSegmentIndicatorGradientBackground = NO;
+    _segmentedControl.segmentIndicatorBackgroundColor = [UIColor redColor];
+    _segmentedControl.segmentIndicatorBorderWidth = 0;
+    _segmentedControl.segmentIndicatorInset = 0;
+    _segmentedControl.segmentIndicatorBorderColor = [UIColor redColor];
+    _segmentedControl.backgroundColor = [UIColor grayColor];
+
+//    self.segmentedControl.titleFont = [UIFont fontWithName:@"AvenirNext-Medium" size:14.0f];
+//    self.segmentedControl.titleTextColor = [UIColor colorWithWhite:0.5f alpha:1.0f];
+//    self.segmentedControl.selectedTitleFont = [UIFont fontWithName:@"AvenirNext-DemiBold" size:14.0f];
+//    self.segmentedControl.selectedTitleTextColor = [UIColor whiteColor];
+//    self.segmentedControl.borderWidth = 1.0f;
+//    self.segmentedControl.borderColor = [UIColor colorWithWhite:0.15f alpha:1.0f];
+//    self.segmentedControl.drawsGradientBackground = YES;
+//    self.segmentedControl.segmentIndicatorInset = 2.0f;
+//    self.segmentedControl.segmentIndicatorGradientTopColor = [UIColor colorWithRed:0.30 green:0.50 blue:0.88f alpha:1.0f];
+//    self.segmentedControl.segmentIndicatorGradientBottomColor = [UIColor colorWithRed:0.20 green:0.35 blue:0.75f alpha:1.0f];
+//    self.segmentedControl.drawsSegmentIndicatorGradientBackground = YES;
+//    self.segmentedControl.segmentIndicatorBorderWidth = 0.0f;
+//    self.segmentedControl.selectedSegmentIndex = 0;
     [self.segmentedControl sizeToFit];
     self.navigationItem.titleView = self.segmentedControl;
     
