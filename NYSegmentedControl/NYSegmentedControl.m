@@ -60,7 +60,7 @@
         
         for (NSString *segmentTitle in items) {
             NYSegment *segment = [[NYSegment alloc] initWithTitle:segmentTitle];
-//            segment.titleLabel.maskCornerRadius = self.cornerRadius;
+            segment.titleLabel.maskCornerRadius = self.cornerRadius;
             [self addSubview:segment];
             [mutableSegments addObject:segment];
             
@@ -99,6 +99,7 @@
     self.segments = [NSArray array];
     
     self.selectedSegmentIndicator = [[NYSegmentIndicator alloc] initWithFrame:CGRectZero];
+    self.selectedSegmentIndicator.cornerRadius = 0;
     self.drawsSegmentIndicatorGradientBackground = YES;
     [self addSubview:self.selectedSegmentIndicator];
 
@@ -178,7 +179,7 @@
     }
     
     NYSegment *newSegment = [[NYSegment alloc] initWithTitle:title];
-//    newSegment.titleLabel.maskCornerRadius = self.cornerRadius;
+    newSegment.titleLabel.maskCornerRadius = self.cornerRadius;
     [self addSubview:newSegment];
     
     NSMutableArray *mutableSegments = [NSMutableArray arrayWithArray:self.segments];
@@ -371,12 +372,12 @@
 }
 
 - (void)setCornerRadius:(CGFloat)cornerRadius {
-//    for (NYSegment *segment in self.segments) {
-//        segment.titleLabel.maskCornerRadius = cornerRadius;
-//    }
+    for (NYSegment *segment in self.segments) {
+        segment.titleLabel.maskCornerRadius = self.cornerRadius;
+    }
 
     self.layer.cornerRadius = cornerRadius;
-    self.selectedSegmentIndicator.cornerRadius = cornerRadius * ((self.frame.size.height - self.segmentIndicatorInset * 2) / self.frame.size.height);
+//    self.selectedSegmentIndicator.cornerRadius = cornerRadius * ((self.frame.size.height - self.segmentIndicatorInset * 2) / self.frame.size.height);
     [self setNeedsDisplay];
 }
 
