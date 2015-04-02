@@ -60,7 +60,7 @@
         
         for (NSString *segmentTitle in items) {
             NYSegment *segment = [[NYSegment alloc] initWithTitle:segmentTitle];
-            segment.titleLabel.maskCornerRadius = self.cornerRadius;
+//            segment.titleLabel.maskCornerRadius = self.cornerRadius;
             [self addSubview:segment];
             [mutableSegments addObject:segment];
             
@@ -100,7 +100,7 @@
     
     self.selectedSegmentIndicator = [[NYSegmentIndicator alloc] initWithFrame:CGRectZero];
     self.selectedSegmentIndicator.cornerRadius = 0;
-    self.drawsSegmentIndicatorGradientBackground = YES;
+    self.drawsSegmentIndicatorGradientBackground = NO;
     [self addSubview:self.selectedSegmentIndicator];
 
     UIPanGestureRecognizer *panGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(didPanGestureRecognizer:)];
@@ -133,13 +133,15 @@
 - (void)layoutSubviews {
     [super layoutSubviews];
     
-    CGFloat segmentWidth = CGRectGetWidth(self.frame) / [self.segments count];
+    CGFloat segmentWidth = ceilf(CGRectGetWidth(self.frame) / [self.segments count]);
     CGFloat segmentHeight = CGRectGetHeight(self.frame);
     for (int i = 0; i < [self.segments count]; i++) {
         
-        UIView* separator = self.segmentsSeparator[i];
-        separator.frame = CGRectMake(segmentWidth * i, 0, self.borderWidth, segmentHeight);
-        separator.backgroundColor = self.borderColor;
+        if (i > 0) {
+            UIView* separator = self.segmentsSeparator[i];
+            separator.frame = CGRectMake(segmentWidth * i, 0, self.borderWidth, segmentHeight);
+            separator.backgroundColor = self.borderColor;
+        }
         
         NYSegment *segment = self.segments[i];
         segment.frame = CGRectMake(segmentWidth * i, 0.0f, segmentWidth, segmentHeight);
@@ -408,7 +410,7 @@
 
 - (void)setSegmentIndicatorInset:(CGFloat)segmentIndicatorInset {
     _segmentIndicatorInset = segmentIndicatorInset;
-//    self.selectedSegmentIndicator.cornerRadius = self.cornerRadius * ((self.frame.size.height - self.segmentIndicatorInset * 2) / self.frame.size.height);
+//    self.selectedSegmentIndicator.cornerRadius = self.cornerRadius * ((self.frame.size.height - self.selectedSegmentIndicato * 2) / self.frame.size.height);
     [self setNeedsLayout];
 }
 
